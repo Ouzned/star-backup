@@ -21,7 +21,7 @@ The archive password can only be decrypted with the private key associated with 
 Simply run these 2 commands :
 
 1. `openssl rsautl -decrypt -inkey <path to private key> -in <path to encrypted password> -out password.dec`
-2. `openssl enc -d -a -aes-256-cbc -in <path to encrypted backup> -out archive.tar.gz -pass file:<path to decrypted password>`
+2. `openssl enc -d -a -aes-256-cbc -pbkdf2 -in <path to encrypted backup> -out archive.tar.gz -pass file:<path to decrypted password>`
 
 ## Google drive backup
 
