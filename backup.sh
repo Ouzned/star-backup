@@ -25,7 +25,7 @@ function create_secure_backup {
     echo "Creating encrypted archive... $(date +%H:%M:%S)"
 
     # Backup, gzip and encrypt the filesystem
-    tar -cpf - --directory=/ -X "$EXCLUDE" . | pigz -p 3 | openssl enc -aes-256-cbc -a -salt -out "$target" -pass file:"$password"
+    tar -cpf - --directory=/ -X $EXCLUDE . | pigz -p 3 | openssl enc -aes-256-cbc -pbkdf2 -a -salt -out "$target" -pass file:"$password"
 
     # Encrypt archive password with public key
     openssl rsautl -encrypt -pubin -inkey "$PUBKEY" -in "$password" -out "$target.key"
